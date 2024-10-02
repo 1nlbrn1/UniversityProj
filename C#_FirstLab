@@ -2,9 +2,9 @@
 // Write, Edit and Run your C# code using C# Online Compiler
 
 using System;
-public  class MFT{
+public static class MFT{
     
-    public int abss(int x){
+    public static int abss(int x){
         if(x<0){
             x=-x;
         }
@@ -12,11 +12,10 @@ public  class MFT{
     }
 }
 public class Tasks{
-    MFT mft = new MFT();
     public void task1(){
         Console.WriteLine("Write a number: ");
         String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.abss(Convert.ToInt32(inp)));
+        Console.WriteLine("Answer: " + MFT.abss(Convert.ToInt32(inp)));
     }
 }
 public class MainClass
