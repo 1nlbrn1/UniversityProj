@@ -2,7 +2,8 @@
 // Write, Edit and Run your C# code using C# Online Compiler
 
 using System;
-public class Tasks{
+public  class MFT{
+    
     public int abss(int x){
         if(x<0){
             x=-x;
@@ -10,13 +11,20 @@ public class Tasks{
         return x;
     }
 }
+public class Tasks{
+    MFT mft = new MFT();
+    public void task1(){
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.abss(Convert.ToInt32(inp)));
+    }
+}
 public class HelloWorld
 {
     
     public static void Main(string[] args)
     {
-        Tasks task1 = new Tasks();
-        String answ = Convert.ToString(task1.abss(-1));
-        Console.WriteLine (answ);
+        Tasks tasks = new Tasks();
+        tasks.task1();
     }
 }
