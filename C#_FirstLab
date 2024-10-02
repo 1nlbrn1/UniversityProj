@@ -1,0 +1,22 @@
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+public class Tasks{
+    public int abss(int x){
+        if(x<0){
+            x=-x;
+        }
+        return x;
+    }
+}
+public class HelloWorld
+{
+    
+    public static void Main(string[] args)
+    {
+        Tasks task1 = new Tasks();
+        String answ = Convert.ToString(task1.abss(-1));
+        Console.WriteLine (answ);
+    }
+}
