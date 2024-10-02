@@ -19,7 +19,7 @@ public class Tasks{
         Console.WriteLine("Answer: " + mft.abss(Convert.ToInt32(inp)));
     }
 }
-public class HelloWorld
+public class MainClass
 {
     
     public static void Main(string[] args)
