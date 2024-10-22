@@ -1,29 +1,467 @@
-// Online C# Editor for free
-// Write, Edit and Run your C# code using C# Online Compiler
-
 using System;
-public static class MFT{
-    
-    public static int abss(int x){
-        if(x<0){
-            x=-x;
+public class MFT {
+
+    public int abss(int x) {
+        if(x < 0) {
+            x = -x;
         }
         return x;
     }
-}
-public class Tasks{
-    public void task1(){
-        Console.WriteLine("Write a number: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + MFT.abss(Convert.ToInt32(inp)));
+    public int sumLastNums(int x) {
+        return x % 10 + x / 10 % 10;
+    }
+    public bool isPositive(int x) {
+        return x>=0;
+    }
+    public bool isUpperCase(char x) {
+        return Char.IsUpper(x);
+    }
+    public bool isDivisor(int a, int b) {
+        return (a % b == 0) || (b % a == 0);
+    }
+    public int lastNumSum(int a, int b)
+    {
+        return (a + b) % 10;
+    }
+    public double safeDiv(int x, int y) {
+        if(y == 0) {
+            return 0;
+        }
+        return x / y;
+    }
+    public String makeDecision(int x, int y) {
+        if(x > y) {
+            return String.Format("{0}>{1}",x, y);
+        }
+        if(x < y) {
+            return String.Format("{0}<{1}", x, y);
+        }
+        return String.Format("{0}=={1}", x, y);
+    }
+    public bool sum3(int x, int y, int z) {
+        return (x + y == z) || (x + z == y) || (y + z == x);
+    }
+    public String age(int x) {
+        if((x % 10 == 1) && (x != 11)) {
+            return x + " год";
+        }
+        if(((x % 10 == 2) || (x % 10 == 3) || (x % 10 == 4)) && (x != 12) && (x != 13) && (x != 14)) {
+            return x + " года";
+        }
+        return x + " лет";
+    }
+    public void printDays(String x) {
+        string ans = "";
+        /*
+        switch(x) {
+            case "понедельник":
+                Console.WriteLine("понедельник /n вторник /n среда /n четверг /n пятница /n суббота /n воскресенье");
+                break;
+            case "вторник":
+                Console.WriteLine("вторник /n среда /n четверг /n пятница /n суббота /n воскресенье");
+                break;
+            case "среда":
+                Console.WriteLine("среда /n четверг /n пятница /n суббота /n воскресенье");
+                break;
+            case "четверг":
+                Console.WriteLine("четверг /n пятница /n суббота /n воскресенье");
+                break;
+            case "пятница":
+                Console.WriteLine("пятница /n суббота /n воскресенье");
+                break;
+            case "суббота":
+                Console.WriteLine("суббота /n воскресенье");
+                break;
+            case "воскресенье":
+                Console.WriteLine("воскресенье");
+                break;
+            default:
+                Console.WriteLine("это не день недели");
+                break;
+        }
+        */
+        switch(x) {
+            case "понедельник":
+                ans+="понедельник ";
+                goto case "вторник";
+            case "вторник":
+                ans += "вторник ";
+                goto case "среда";
+            case "среда":
+                ans += "среда ";
+                goto case "четверг";
+            case "четверг":
+                ans += "четверг ";
+                goto case "пятница";
+            case "пятница":
+                ans += "пятница ";
+                goto case "суббота";
+            case "суббота":
+                ans += "суббота ";
+                goto case "воскресенье";
+            case "воскресенье":
+                ans += "воскресенье";
+                break;
+            default:
+                ans = "это не день недели";
+                break;
+        }
+        Console.WriteLine(ans);
+
+    }
+    public String reverseListNums(int x) {
+        string outstr = "";
+        for(int i = x; i>=0; --i) {
+            outstr += Convert.ToString(i) + ' ';
+        }
+        return outstr;
+    }
+    public int pow(int x, int y) {
+        int ans = 1;
+        for (int i = 0; i < y; ++i) {
+            ans *= x;
+        }
+        return ans;
+    }
+    public bool equalNum(int x) {
+        if(x < 0) { x = -x; }
+        int k = x;
+        int num = x % 10;
+        while(k >= 10) {
+            if(k % 10 != num) {
+                return false;
+            }
+            k /= 10;
+        }
+        return true;
+    }
+    public void leftTriangle(int x) {
+        string stars = "";
+        for(int i = 0; i < x; ++i) {
+            stars += "*";
+            Console.WriteLine(stars);
+        } 
+    }
+    public void guessGame() {
+        Random rnd = new Random();
+        Console.WriteLine("Input a number from 0 to 9:");
+        string inp = "";
+        int n = 1;
+        inp = Console.ReadLine();
+        while (Convert.ToInt32(inp) != rnd.Next(0, 10))
+        {
+            n += 1;
+            Console.WriteLine("Wrong guess, try again. Input a number from 0 to 9:");
+            inp = Console.ReadLine();
+
+        }
+        Console.WriteLine($"Right guess in {n} attempts");
+    }
+    public int findLast(int[] arr, int x)
+    {
+        int ans = -1;
+        for(int i = 0; i < arr.Length; ++i)
+        {
+            if (arr[i] == x) { ans = i; }
+
+        }
+        return ans;
+    }
+    public int[] add(int[] arr, int x, int pos)
+    {
+        int[] narr = new int[arr.Length + 1];
+        int i = 0;
+        for(;i < pos; ++i)
+        {
+            narr[i] = arr[i];
+        }
+        narr[pos] = x;
+        for (; i < arr.Length; ++i)
+        {
+            narr[i+1] = arr[i];
+        }
+        return narr;
+
+    }
+    public void reverse(int[] arr)
+    {
+        /*
+        int[] tarr = new int[arr.Length];
+        for(int i = 0; i < arr.Length; ++i)
+        {
+            tarr[i] = arr[arr.Length - 1 - i];
+        }
+        arr = tarr;
+        */
+        Array.Reverse(arr);
+    }
+    public int[] concat(int[] arr1, int[] arr2)
+    {
+        int[] arr3 = new int[arr1.Length + arr2.Length];
+        arr1.CopyTo(arr3, 0);
+        arr2.CopyTo(arr3, arr2.Length);
+        return arr3;
+    }
+    public int[] deleteNegative(int[] arr)
+    {
+        int negcount = 0;
+        foreach (int i in arr) { if (i < 0) { negcount++; } }
+        int[] arr2 = new int[arr.Length - negcount];
+        int k = 0;
+        for (int i = 0; i < arr.Length; ++i)
+        {
+            if (arr[i] >= 0)
+            {
+                arr2[k] = arr[i];
+                ++k;
+            }
+        }
+        return arr2;
     }
 }
-public class MainClass
-{
-    
-    public static void Main(string[] args)
+public class Tasks {
+    MFT mft = new MFT();
+    public void task1() {
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.abss(Convert.ToInt32(inp)));
+    }
+    public void task1_2() {
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.sumLastNums(Convert.ToInt32(inp)));
+    }
+    public void task1_4() {
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.isPositive(Convert.ToInt32(inp)));
+    }
+    public void task1_6() {
+        Console.WriteLine("Write a char: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.isUpperCase(Convert.ToChar(inp)));
+    }
+    public void task1_8() {
+        Console.WriteLine("Write 2 numbers: ");
+        String inp = Console.ReadLine();
+        var inparr = inp.Split(' ');
+        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
+        Console.WriteLine("Answer: " + mft.isDivisor(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+    }
+    public void task1_10() { 
+        Console.WriteLine("Write 5 numbers: ");
+        String inp = Console.ReadLine();
+        var inparr = inp.Split(' ');
+        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
+        int res = mft.lastNumSum(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1]));
+        for (int i = 2; i < 5; ++i)
+        {
+            res = mft.lastNumSum(res, Convert.ToInt32(inparr[i]));
+        }
+        Console.WriteLine("Answer: " + res);
+    }
+
+
+public void task2_2() {
+        Console.WriteLine("Write 2 numbers: ");
+        String inp = Console.ReadLine();
+        var inparr = inp.Split(' ');
+        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
+        Console.WriteLine("Answer: " + mft.safeDiv(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+    }
+    public void task2_4() {
+        Console.WriteLine("Write 2 numbers: ");
+        String inp = Console.ReadLine();
+        var inparr = inp.Split(' ');
+        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
+        Console.WriteLine("Answer: " + mft.makeDecision(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+    }
+    public void task2_6() {
+        Console.WriteLine("Write 3 numbers: ");
+        String inp = Console.ReadLine();
+        var inparr = inp.Split(' ');
+        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
+        Console.WriteLine("Answer: " + mft.sum3(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1]), Convert.ToInt32(inparr[2])));
+    }
+    public void task2_8() {
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.age(Convert.ToInt32(inp)));
+    }
+    public void task2_10() {
+        Console.WriteLine("Write a string: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: ");
+        mft.printDays(inp);
+    }
+    public void task3_2() {
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.reverseListNums(Convert.ToInt32(inp)));
+    }
+    public void task3_4() {
+        Console.WriteLine("Write 2 numbers: ");
+        String inp = Console.ReadLine();
+        var inparr = inp.Split(' ');
+        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
+        Console.WriteLine("Answer: " + mft.pow(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+    }
+    public void task3_6() {
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.equalNum(Convert.ToInt32(inp)));
+    }
+    public void task3_8() {
+        Console.WriteLine("Write a number: ");
+        String inp = Console.ReadLine();
+        Console.WriteLine("Answer: ");
+        mft.leftTriangle(Convert.ToInt32(inp));
+    }
+    public void task3_10()
     {
+        mft.guessGame();
+    }
+    public void task4_2()
+    {
+        Console.WriteLine("Write an array: ");
+        int[] array;
+        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        Console.WriteLine("Write a number: ");
+        String inpnum = Console.ReadLine();
+        Console.WriteLine("Answer: " + mft.findLast(array,Convert.ToInt32(inpnum)));
+    }
+    public void task4_4()
+    {
+        Console.WriteLine("Write an array: ");
+        int[] array;
+        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        Console.WriteLine("Write an x: ");
+        String x = Console.ReadLine();
+        Console.WriteLine("Write a pos: ");
+        String pos = Console.ReadLine();
+        Console.WriteLine("Answer: ");
+        //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
+        Console.WriteLine("[{0}]", string.Join(", ", mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos))));
+    }
+    public void task4_6()
+    {
+        Console.WriteLine("Write an array: ");
+        int[] array;
+        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        Console.WriteLine("Answer: ");
+        //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
+        mft.reverse(array);
+        Console.WriteLine("[{0}]", string.Join(", ", array));
+    }
+    public void task4_8()
+    {
+        Console.WriteLine("Write an array1: ");
+        int[] array1;
+        array1 = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        Console.WriteLine("Write an array2: ");
+        int[] array2;
+        array2 = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        Console.WriteLine("Answer: ");
+        //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
+        Console.WriteLine("[{0}]", string.Join(", ", mft.concat(array1, array2)));
+    }
+    public void task4_10()
+    {
+        Console.WriteLine("Write an array: ");
+        int[] array;
+        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        Console.WriteLine("Answer: ");
+        //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
+        Console.WriteLine("[{0}]", string.Join(", ", mft.deleteNegative(array)));
+    }
+}
+public class MainClass {
+
+    public static void Main(string[] args) {
         Tasks tasks = new Tasks();
-        tasks.task1();
+        //tasks.task1();
+        //tasks.task1_2();
+        //tasks.task1_4();
+        //tasks.task1_6();
+        //tasks.task1_8();
+        //tasks.task2_2();
+        //tasks.task2_4();
+        //tasks.task2_6();
+        //tasks.task2_8();
+        //tasks.task2_10();
+        //tasks.task3_2();
+        //tasks.task3_4();
+        //tasks.task3_6();
+        //tasks.task3_8();
+        //tasks.task3_10();
+        //tasks.task4_2();
+        //tasks.task4_4();
+        //tasks.task4_6();
+        //tasks.task4_8();
+        //tasks.task4_10();
+        while (true)
+        {
+            Console.WriteLine("Enter task number and subtask number. Enter 0 to exit program: ");
+            int[] inps;
+            inps = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+            int tcode = 0;
+            if (inps[0] != 0)
+            {
+                tcode = inps[0] * 100 + inps[1];
+            }
+            switch (tcode)
+            {
+                case 0:
+                    return;
+                case 102:
+                    tasks.task1_2(); break;
+                case 104:
+                    tasks.task1_4(); break;
+                case 106:
+                    tasks.task1_6(); break;
+                case 108:
+                    tasks.task1_8(); break;
+                case 110:
+                    tasks.task1_10(); break;
+                case 202:
+                    tasks.task2_2(); break;
+                case 204:
+                    tasks.task2_4(); break;
+                case 206:
+                    tasks.task2_6(); break;
+                case 208:
+                    tasks.task2_8(); break;
+                case 210:
+                    tasks.task2_10(); break;
+                case 302:
+                    tasks.task3_2(); break;
+                case 304:
+                    tasks.task3_4(); break;
+                case 306:
+                    tasks.task3_6(); break;
+                case 308:
+                    tasks.task3_8(); break;
+                case 310:
+                    tasks.task3_10(); break;
+                case 402:
+                    tasks.task4_2(); break;
+                case 404:
+                    tasks.task4_4(); break;
+                case 406:
+                    tasks.task4_6(); break;
+                case 408:
+                    tasks.task4_8(); break;
+                case 410:
+                    tasks.task4_10(); break;
+                default:
+                    Console.WriteLine("No such task exists"); break;
+            }
+            {
+
+            }
+
+        }
+
+
     }
 }
