@@ -1,4 +1,36 @@
 using System;
+    public static class check {
+    static public int InputIntegerWithValidation(string s, int left, int right) // Ввод целого числа с проверкой правильности ввода, в том числе принадлежности к указанному диапазону.                                                                                         
+        {
+        bool ok;
+        int a;
+        do {
+            Console.WriteLine(s);
+            ok = int.TryParse(Console.ReadLine(), out a);
+            if(ok)
+                if(a < left || a > right)
+                    ok = false;
+            if(!ok) {
+                ConsoleColor tmp = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\nВведенные данные имеют неверный формат или не принадлежат диапазону [{left}; {right}]");
+                Console.WriteLine("Повторите ввод\n");
+                Console.ForegroundColor = tmp;
+            }
+        } while(!ok);
+        return a;
+    }
+    static public bool isokinputint(string s, int left, int right) {
+        bool ok;
+        int a;
+        ok = int.TryParse(s, out a);
+        if(ok)
+            if(a < left || a > right)
+                ok = false;
+        return ok;
+    }
+
+}
 public class MFT {
 
     public int abss(int x) {
@@ -11,7 +43,7 @@ public class MFT {
         return x % 10 + x / 10 % 10;
     }
     public bool isPositive(int x) {
-        return x>=0;
+        return x >= 0;
     }
     public bool isUpperCase(char x) {
         return Char.IsUpper(x);
@@ -19,8 +51,7 @@ public class MFT {
     public bool isDivisor(int a, int b) {
         return (a % b == 0) || (b % a == 0);
     }
-    public int lastNumSum(int a, int b)
-    {
+    public int lastNumSum(int a, int b) {
         return (a + b) % 10;
     }
     public double safeDiv(int x, int y) {
@@ -31,7 +62,7 @@ public class MFT {
     }
     public String makeDecision(int x, int y) {
         if(x > y) {
-            return String.Format("{0}>{1}",x, y);
+            return String.Format("{0}>{1}", x, y);
         }
         if(x < y) {
             return String.Format("{0}<{1}", x, y);
@@ -82,7 +113,7 @@ public class MFT {
         */
         switch(x) {
             case "понедельник":
-                ans+="понедельник ";
+                ans += "понедельник ";
                 goto case "вторник";
             case "вторник":
                 ans += "вторник ";
@@ -111,14 +142,14 @@ public class MFT {
     }
     public String reverseListNums(int x) {
         string outstr = "";
-        for(int i = x; i>=0; --i) {
+        for(int i = x; i >= 0; --i) {
             outstr += Convert.ToString(i) + ' ';
         }
         return outstr;
     }
     public int pow(int x, int y) {
         int ans = 1;
-        for (int i = 0; i < y; ++i) {
+        for(int i = 0; i < y; ++i) {
             ans *= x;
         }
         return ans;
@@ -140,51 +171,57 @@ public class MFT {
         for(int i = 0; i < x; ++i) {
             stars += "*";
             Console.WriteLine(stars);
-        } 
+        }
     }
     public void guessGame() {
         Random rnd = new Random();
-        Console.WriteLine("Input a number from 0 to 9:");
         string inp = "";
         int n = 1;
-        inp = Console.ReadLine();
-        while (Convert.ToInt32(inp) != rnd.Next(0, 10))
-        {
+        while(true) {
+            Console.WriteLine("Input a number from 0 to 9:");
+            inp = Console.ReadLine();
+            if(check.isokinputint(inp, int.MinValue, int.MaxValue)) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+        while(Convert.ToInt32(inp) != rnd.Next(0, 10)) {
             n += 1;
             Console.WriteLine("Wrong guess, try again. Input a number from 0 to 9:");
-            inp = Console.ReadLine();
-
+            while(true) {
+                inp = Console.ReadLine();
+                if(check.isokinputint(inp, int.MinValue, int.MaxValue)) {
+                    break;
+                } else {
+                    Console.WriteLine("Input error");
+                }
+            }
         }
         Console.WriteLine($"Right guess in {n} attempts");
     }
-    public int findLast(int[] arr, int x)
-    {
+    public int findLast(int[] arr, int x) {
         int ans = -1;
-        for(int i = 0; i < arr.Length; ++i)
-        {
-            if (arr[i] == x) { ans = i; }
+        for(int i = 0; i < arr.Length; ++i) {
+            if(arr[i] == x) { ans = i; }
 
         }
         return ans;
     }
-    public int[] add(int[] arr, int x, int pos)
-    {
+    public int[] add(int[] arr, int x, int pos) {
         int[] narr = new int[arr.Length + 1];
         int i = 0;
-        for(;i < pos; ++i)
-        {
+        for(; i < pos; ++i) {
             narr[i] = arr[i];
         }
         narr[pos] = x;
-        for (; i < arr.Length; ++i)
-        {
-            narr[i+1] = arr[i];
+        for(; i < arr.Length; ++i) {
+            narr[i + 1] = arr[i];
         }
         return narr;
 
     }
-    public void reverse(int[] arr)
-    {
+    public void reverse(int[] arr) {
         /*
         int[] tarr = new int[arr.Length];
         for(int i = 0; i < arr.Length; ++i)
@@ -195,23 +232,19 @@ public class MFT {
         */
         Array.Reverse(arr);
     }
-    public int[] concat(int[] arr1, int[] arr2)
-    {
+    public int[] concat(int[] arr1, int[] arr2) {
         int[] arr3 = new int[arr1.Length + arr2.Length];
         arr1.CopyTo(arr3, 0);
         arr2.CopyTo(arr3, arr2.Length);
         return arr3;
     }
-    public int[] deleteNegative(int[] arr)
-    {
+    public int[] deleteNegative(int[] arr) {
         int negcount = 0;
-        foreach (int i in arr) { if (i < 0) { negcount++; } }
+        foreach(int i in arr) { if(i < 0) { negcount++; } }
         int[] arr2 = new int[arr.Length - negcount];
         int k = 0;
-        for (int i = 0; i < arr.Length; ++i)
-        {
-            if (arr[i] >= 0)
-            {
+        for(int i = 0; i < arr.Length; ++i) {
+            if(arr[i] >= 0) {
                 arr2[k] = arr[i];
                 ++k;
             }
@@ -221,73 +254,156 @@ public class MFT {
 }
 public class Tasks {
     MFT mft = new MFT();
-    public void task1() {
-        Console.WriteLine("Write a number: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.abss(Convert.ToInt32(inp)));
-    }
+
     public void task1_2() {
-        Console.WriteLine("Write a number: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.sumLastNums(Convert.ToInt32(inp)));
+        while(true) {
+            Console.WriteLine("Write a number: ");
+            String inp = Console.ReadLine();
+            if(check.isokinputint(inp, int.MinValue, -10) || check.isokinputint(inp, 10, int.MaxValue)) {
+                Console.WriteLine("Answer: " + mft.sumLastNums(Convert.ToInt32(inp)));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task1_4() {
-        Console.WriteLine("Write a number: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.isPositive(Convert.ToInt32(inp)));
+        while(true) {
+            Console.WriteLine("Write a number: ");
+            String inp = Console.ReadLine();
+            if(check.isokinputint(inp, int.MinValue, int.MaxValue)) {
+                Console.WriteLine("Answer: " + mft.isPositive(Convert.ToInt32(inp)));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task1_6() {
-        Console.WriteLine("Write a char: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.isUpperCase(Convert.ToChar(inp)));
+        while(true) {
+            Console.WriteLine("Write a char: ");
+            String inp = Console.ReadLine();
+            if(inp.Length == 0) {
+                Console.WriteLine("Answer: " + mft.isUpperCase(Convert.ToChar(inp)));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task1_8() {
-        Console.WriteLine("Write 2 numbers: ");
-        String inp = Console.ReadLine();
-        var inparr = inp.Split(' ');
-        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
-        Console.WriteLine("Answer: " + mft.isDivisor(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
-    }
-    public void task1_10() { 
-        Console.WriteLine("Write 5 numbers: ");
-        String inp = Console.ReadLine();
-        var inparr = inp.Split(' ');
-        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
-        int res = mft.lastNumSum(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1]));
-        for (int i = 2; i < 5; ++i)
-        {
-            res = mft.lastNumSum(res, Convert.ToInt32(inparr[i]));
+        while(true) {
+            Console.WriteLine("Write 2 numbers: ");
+            String inp = Console.ReadLine();
+            var inparr = inp.Split(' ');
+            bool ok = true;
+            foreach(string i in inparr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                Console.WriteLine("Answer: " + mft.isDivisor(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
         }
-        Console.WriteLine("Answer: " + res);
+    }
+    public void task1_10() {
+        while(true) {
+            Console.WriteLine("Write 5 numbers: ");
+            String inp = Console.ReadLine();
+            var inparr = inp.Split(' ');
+            bool ok = true;
+            foreach(string i in inparr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                int res = mft.lastNumSum(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1]));
+                for(int i = 2; i < 5; ++i) {
+                    res = mft.lastNumSum(res, Convert.ToInt32(inparr[i]));
+                }
+                Console.WriteLine("Answer: " + res);
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
 
 
-public void task2_2() {
-        Console.WriteLine("Write 2 numbers: ");
-        String inp = Console.ReadLine();
-        var inparr = inp.Split(' ');
-        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
-        Console.WriteLine("Answer: " + mft.safeDiv(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+    public void task2_2() {
+        while(true) {
+            Console.WriteLine("Write 2 numbers: ");
+            String inp = Console.ReadLine();
+            var inparr = inp.Split(' ');
+            bool ok = true;
+            foreach(string i in inparr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                Console.WriteLine("Answer: " + mft.safeDiv(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task2_4() {
-        Console.WriteLine("Write 2 numbers: ");
-        String inp = Console.ReadLine();
-        var inparr = inp.Split(' ');
-        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
-        Console.WriteLine("Answer: " + mft.makeDecision(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+        while(true) {
+            Console.WriteLine("Write 2 numbers: ");
+            String inp = Console.ReadLine();
+            var inparr = inp.Split(' ');
+            bool ok = true;
+            foreach(string i in inparr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                Console.WriteLine("Answer: " + mft.makeDecision(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task2_6() {
-        Console.WriteLine("Write 3 numbers: ");
-        String inp = Console.ReadLine();
-        var inparr = inp.Split(' ');
-        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
-        Console.WriteLine("Answer: " + mft.sum3(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1]), Convert.ToInt32(inparr[2])));
+        while(true) {
+            Console.WriteLine("Write 3 numbers: ");
+            String inp = Console.ReadLine();
+            var inparr = inp.Split(' ');
+            bool ok = true;
+            foreach(string i in inparr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                Console.WriteLine("Answer: " + mft.sum3(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1]), Convert.ToInt32(inparr[2])));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task2_8() {
-        Console.WriteLine("Write a number: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.age(Convert.ToInt32(inp)));
-    }
+        while(true) {
+            Console.WriteLine("Write a number: ");
+            String inp = Console.ReadLine();
+            if(check.isokinputint(inp, int.MinValue, int.MaxValue)) {
+                Console.WriteLine("Answer: " + mft.age(Convert.ToInt32(inp)));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+}
     public void task2_10() {
         Console.WriteLine("Write a string: ");
         String inp = Console.ReadLine();
@@ -295,81 +411,222 @@ public void task2_2() {
         mft.printDays(inp);
     }
     public void task3_2() {
-        Console.WriteLine("Write a number: ");
+        while(true) {
+            Console.WriteLine("Write a number: ");
         String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.reverseListNums(Convert.ToInt32(inp)));
+            if(check.isokinputint(inp, 0, int.MaxValue)) {
+                Console.WriteLine("Answer: " + mft.reverseListNums(Convert.ToInt32(inp)));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task3_4() {
-        Console.WriteLine("Write 2 numbers: ");
-        String inp = Console.ReadLine();
-        var inparr = inp.Split(' ');
-        //Console.WriteLine(inparr[0] + ' ' + inparr[1]);
-        Console.WriteLine("Answer: " + mft.pow(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+        while(true) {
+            Console.WriteLine("Write 2 numbers: ");
+            String inp = Console.ReadLine();
+            var inparr = inp.Split(' ');
+            bool ok = true;
+            foreach(string i in inparr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(!check.isokinputint(inparr[1], 0, int.MaxValue)) {
+                ok = false;
+            }
+            if(ok) {
+                Console.WriteLine("Answer: " + mft.pow(Convert.ToInt32(inparr[0]), Convert.ToInt32(inparr[1])));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task3_6() {
-        Console.WriteLine("Write a number: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.equalNum(Convert.ToInt32(inp)));
+        while(true) {
+            Console.WriteLine("Write a number: ");
+            String inp = Console.ReadLine();
+            if(check.isokinputint(inp, int.MinValue, int.MaxValue)) {
+                Console.WriteLine("Answer: " + mft.equalNum(Convert.ToInt32(inp)));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
     public void task3_8() {
-        Console.WriteLine("Write a number: ");
-        String inp = Console.ReadLine();
-        Console.WriteLine("Answer: ");
-        mft.leftTriangle(Convert.ToInt32(inp));
+        while(true) {
+            Console.WriteLine("Write a number: ");
+            String inp = Console.ReadLine();
+            if(check.isokinputint(inp, 0, int.MaxValue)) {
+                Console.WriteLine("Answer: ");
+                mft.leftTriangle(Convert.ToInt32(inp));
+                return;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
-    public void task3_10()
-    {
+    public void task3_10() {
         mft.guessGame();
     }
-    public void task4_2()
-    {
-        Console.WriteLine("Write an array: ");
+    public void task4_2() {
         int[] array;
-        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
-        Console.WriteLine("Write a number: ");
-        String inpnum = Console.ReadLine();
-        Console.WriteLine("Answer: " + mft.findLast(array,Convert.ToInt32(inpnum)));
+        string[] arrstr;
+        while(true) {
+            Console.WriteLine("Write an array: ");
+            arrstr = Console.ReadLine().Trim().Split(' ');;
+            bool ok = true;
+            foreach(string i in arrstr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+                array = Array.ConvertAll(arrstr, Convert.ToInt32);
+        while(true) {
+            Console.WriteLine("Write a number: ");
+            String inpnum = Console.ReadLine();
+            if(check.isokinputint(inpnum, int.MinValue, int.MaxValue)) {
+                Console.WriteLine("Answer: " + mft.findLast(array, Convert.ToInt32(inpnum)));
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
-    public void task4_4()
-    {
-        Console.WriteLine("Write an array: ");
+    public void task4_4() {
         int[] array;
-        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
-        Console.WriteLine("Write an x: ");
-        String x = Console.ReadLine();
-        Console.WriteLine("Write a pos: ");
+        string[] arrstr;
+        while(true) {
+            Console.WriteLine("Write an array: ");
+            arrstr = Console.ReadLine().Trim().Split(' '); ;
+            bool ok = true;
+            foreach(string i in arrstr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+        array = Array.ConvertAll(arrstr, Convert.ToInt32);
+        String x;
+        while(true) {
+            Console.WriteLine("Write an x: ");
+            x = Console.ReadLine();
+            if(check.isokinputint(x, int.MinValue, int.MaxValue)) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+        while(true) {
+            Console.WriteLine("Write a pos: ");
         String pos = Console.ReadLine();
-        Console.WriteLine("Answer: ");
-        //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
+            if(check.isokinputint(pos, 0, array.Length)) {
+                Console.WriteLine("Answer: ");
         Console.WriteLine("[{0}]", string.Join(", ", mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos))));
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
     }
-    public void task4_6()
-    {
-        Console.WriteLine("Write an array: ");
+    public void task4_6() {
         int[] array;
-        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        string[] arrstr;
+        while(true) {
+            Console.WriteLine("Write an array: ");
+            arrstr = Console.ReadLine().Trim().Split(' '); ;
+            bool ok = true;
+            foreach(string i in arrstr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+        array = Array.ConvertAll(arrstr, Convert.ToInt32);
         Console.WriteLine("Answer: ");
         //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
         mft.reverse(array);
         Console.WriteLine("[{0}]", string.Join(", ", array));
     }
-    public void task4_8()
-    {
-        Console.WriteLine("Write an array1: ");
+    public void task4_8() {
         int[] array1;
-        array1 = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
-        Console.WriteLine("Write an array2: ");
+        string[] arrstr1;
+        while(true) {
+            Console.WriteLine("Write an array1: ");
+            arrstr1 = Console.ReadLine().Trim().Split(' '); ;
+            bool ok = true;
+            foreach(string i in arrstr1) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+        array1 = Array.ConvertAll(arrstr1, Convert.ToInt32);
         int[] array2;
-        array2 = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        string[] arrstr2;
+        while(true) {
+            Console.WriteLine("Write an array: ");
+            arrstr2 = Console.ReadLine().Trim().Split(' '); ;
+            bool ok = true;
+            foreach(string i in arrstr2) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+        array2 = Array.ConvertAll(arrstr2, Convert.ToInt32);
         Console.WriteLine("Answer: ");
         //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
         Console.WriteLine("[{0}]", string.Join(", ", mft.concat(array1, array2)));
     }
-    public void task4_10()
-    {
-        Console.WriteLine("Write an array: ");
+    public void task4_10() {
         int[] array;
-        array = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+        string[] arrstr;
+        while(true) {
+            Console.WriteLine("Write an array: ");
+            arrstr = Console.ReadLine().Trim().Split(' '); ;
+            bool ok = true;
+            foreach(string i in arrstr) {
+                if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
+                    ok = false;
+                }
+            }
+            if(ok) {
+                break;
+            } else {
+                Console.WriteLine("Input error");
+            }
+        }
+        array = Array.ConvertAll(arrstr, Convert.ToInt32);
         Console.WriteLine("Answer: ");
         //Array.ForEach(mft.add(array, Convert.ToInt32(x), Convert.ToInt32(pos)), Console.WriteLine);
         Console.WriteLine("[{0}]", string.Join(", ", mft.deleteNegative(array)));
@@ -399,18 +656,28 @@ public class MainClass {
         //tasks.task4_6();
         //tasks.task4_8();
         //tasks.task4_10();
-        while (true)
-        {
-            Console.WriteLine("Enter task number and subtask number. Enter 0 to exit program: ");
+        while(true) {
             int[] inps;
-            inps = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
             int tcode = 0;
-            if (inps[0] != 0)
-            {
-                tcode = inps[0] * 100 + inps[1];
+            while(true) {
+                Console.WriteLine("Enter task number and subtask number. Enter 0 to exit program: ");
+                inps = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), Convert.ToInt32);
+                tcode = 0;
+                if(inps.Length == 1) {
+                    break;
+                }
+                if(inps.Length != 2) {
+                    Console.WriteLine("Input error");
+                } else {
+                    break;
+                }
             }
-            switch (tcode)
-            {
+            if(inps[0] != 0) {
+                tcode = inps[0] * 100 + inps[1];
+            } else {
+                tcode = 0;
+            }
+            switch(tcode) {
                 case 0:
                     return;
                 case 102:
@@ -456,12 +723,7 @@ public class MainClass {
                 default:
                     Console.WriteLine("No such task exists"); break;
             }
-            {
-
-            }
-
+            Console.WriteLine();
         }
-
-
     }
 }
