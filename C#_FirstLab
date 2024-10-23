@@ -283,7 +283,7 @@ public class Tasks {
         while(true) {
             Console.WriteLine("Write a char: ");
             String inp = Console.ReadLine();
-            if(inp.Length == 0) {
+            if(inp.Length == 1) {
                 Console.WriteLine("Answer: " + mft.isUpperCase(Convert.ToChar(inp)));
                 return;
             } else {
@@ -297,6 +297,7 @@ public class Tasks {
             String inp = Console.ReadLine();
             var inparr = inp.Split(' ');
             bool ok = true;
+            if(inparr.Length != 2) { ok = false; }
             foreach(string i in inparr) {
                 if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
                     ok = false;
@@ -316,6 +317,9 @@ public class Tasks {
             String inp = Console.ReadLine();
             var inparr = inp.Split(' ');
             bool ok = true;
+            if(inparr.Length != 5) {
+                ok = false;
+            }
             foreach(string i in inparr) {
                 if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
                     ok = false;
@@ -341,6 +345,9 @@ public class Tasks {
             String inp = Console.ReadLine();
             var inparr = inp.Split(' ');
             bool ok = true;
+            if(inparr.Length != 2) {
+                ok = false;
+            }
             foreach(string i in inparr) {
                 if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
                     ok = false;
@@ -360,6 +367,9 @@ public class Tasks {
             String inp = Console.ReadLine();
             var inparr = inp.Split(' ');
             bool ok = true;
+            if(inparr.Length != 2) {
+                ok = false;
+            }
             foreach(string i in inparr) {
                 if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
                     ok = false;
@@ -379,6 +389,9 @@ public class Tasks {
             String inp = Console.ReadLine();
             var inparr = inp.Split(' ');
             bool ok = true;
+            if(inparr.Length != 3) {
+                ok = false;
+            }
             foreach(string i in inparr) {
                 if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
                     ok = false;
@@ -428,6 +441,9 @@ public class Tasks {
             String inp = Console.ReadLine();
             var inparr = inp.Split(' ');
             bool ok = true;
+            if(inparr.Length != 2) {
+                ok = false;
+            }
             foreach(string i in inparr) {
                 if(!check.isokinputint(i, int.MinValue, int.MaxValue)) {
                     ok = false;
