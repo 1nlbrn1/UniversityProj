@@ -142,8 +142,14 @@ public class MFT {
     }
     public String reverseListNums(int x) {
         string outstr = "";
-        for(int i = x; i >= 0; --i) {
-            outstr += Convert.ToString(i) + ' ';
+        if(x >= 0) {
+            for(int i = x; i >= 0; --i) {
+                outstr += Convert.ToString(i) + ' ';
+            }
+        } else {
+            for(int i = x; i <= 0; ++i) {
+                outstr += Convert.ToString(i) + ' ';
+            }
         }
         return outstr;
     }
@@ -427,7 +433,7 @@ public class Tasks {
         while(true) {
             Console.WriteLine("Write a number: ");
         String inp = Console.ReadLine();
-            if(check.isokinputint(inp, 0, int.MaxValue)) {
+            if(check.isokinputint(inp, int.MinValue, int.MaxValue)) {
                 Console.WriteLine("Answer: " + mft.reverseListNums(Convert.ToInt32(inp)));
                 return;
             } else {
